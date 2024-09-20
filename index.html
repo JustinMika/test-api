@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maternologie Agricole</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen-" style="overflow: scroll;">
+
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl" style="overflow: scroll;">
+    <!-- Introduction Section -->
+    <h1 class="text-3xl font-bold mb-4 text-center text-green-600">Bienvenue sur Meternologie Agricole</h1>
+    <p class="text-gray-600 text-center mb-6">Sélectionnez votre produit et entrez vos coordonnées géographiques
+        pour
+        recevoir des conseils personnalisés selon votre emplacement.</p>
+
+    <!-- Product Selection Form with Latitude and Longitude -->
+    <form id="productForm" class="space-y-4">
+        <!-- Latitude -->
+        <label class="block">
+            <span class="text-gray-700">Latitude</span>
+            <input type="text" id="latitude" name="latitude"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                   placeholder="Entrez la latitude" value="-1.6587679">
+        </label>
+
+        <!-- Longitude -->
+        <label class="block">
+            <span class="text-gray-700">Longitude</span>
+            <input type="text" id="longitude" name="longitude"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                   placeholder="Entrez la longitude" value="29.1257065">
+        </label>
+
+        <!-- Product Selection -->
+        <label class="block">
+            <span class="text-gray-700">Produit Agricole</span>
+            <select id="product" name="product"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                <option value="">Sélectionner un produit</option>
+                <option value="maïs">Maïs</option>
+                <option value="riz">Riz</option>
+                <option value="haricot">Haricot</option>
+                <option value="manioc">Manioc</option>
+            </select>
+        </label>
+
+        <!-- Submit Button -->
+        <button id="submitButton" type="submit"
+                class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+            Envoyer
+        </button>
+    </form>
+
+    <!-- Result Section -->
+    <div id="result" class="mt-6 text-justify text-gray-700" style="overflow: scroll;"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#productForm').on('submit', async function (event) {
+            event.preventDefault(); // Empêche le rechargement de la page
+
+            const product = $('#product').val();
+            const latitude = $('#latitude').val();
+            const longitude = $('#longitude').val();
+            const submitButton = $('#submitButton');
+            const resultDiv = $('#result');
+
+            // Vérification des champs du formulaire
+            if (!product || !latitude || !longitude) {
+                resultDiv.html('<p class="text-red-600">Veuillez remplir tous les champs.</p>');
+                return;
+            }
+
+            // Désactivation du bouton et affichage de "Envoi en cours..."
+            submitButton.prop('disabled', true).text('Envoi en cours...');
+
+            try {
+                // // Deuxième requête : Utilisation des données de la première requête pour une deuxième requête
+                const data_all = {
+                    "daily": {
+                        "feels_like": 20.52,
+                        "rainprob": 51,
+                        "rainfall": 3.29,
+                        "wsp": 5.78,
+                        "pwindgust": 6.68,
+                        "temp": 20.83,
+                        "relh": 61.68,
+                        "tcc": 34.19,
+                        "feels_like_min": 17.62,
+                        "feels_like_max": 24.25,
+                        "wsp_min": 1.43,
+                        "wsp_max": 12.64,
+                        "temp_min": 18.04,
+                        "temp_max": 24.55,
+                        "relh_min": 43.01,
+                        "relh_max": 72.68,
+                        "fcat25": 3
+                    },
+                };
+                const message = `Quelles pratiques agricoles durables devrais-je adopter pour optimiser ma culture de ${product} en fonction des conditions climatiques spécifiques de ma région afrique en rdc.  Ci apres les donnees meteorologiques : `;
+                const data = {
+                    message: message,
+                    latitude: latitude,
+                    longitude: longitude
+                }
+                const secondResponse = await axios.post('http://localhost:3000/test-api', data);
+
+                const finalData = secondResponse.data;
+                //F
+                // Affichage du résultat final
+                resultDiv.html('<p class="text-green-600 font-bold">Conseil Final :<br/> ' + finalData + '</p>');
+            } catch (error) {
+                console.error('Erreur lors de la requête', error);
+                resultDiv.html('<p class="text-red-600">Une erreur est survenue. Veuillez réessayer.</p>');
+            } finally {
+                // Réactivation du bouton et réinitialisation du texte
+                submitButton.prop('disabled', false).text('Envoyer');
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
