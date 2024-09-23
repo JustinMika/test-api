@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,99 +8,195 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center h-screen-" style="overflow: scroll;">
 
-<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl" style="overflow: scroll;">
-    <!-- Introduction Section -->
-    <h1 class="text-3xl font-bold mb-4 text-center text-green-600">Bienvenue sur Meternologie Agricole</h1>
-    <p class="text-gray-600 text-center mb-6">Sélectionnez votre produit et entrez vos coordonnées géographiques
-        pour
-        recevoir des conseils personnalisés selon votre emplacement.</p>
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl" style="overflow: scroll;">
+        <!-- Introduction Section -->
+        <h1 class="text-3xl font-bold mb-4 text-center text-green-600">Bienvenue sur Meternologie Agricole</h1>
+        <p class="text-gray-600 text-center mb-6">Sélectionnez votre produit et entrez vos coordonnées géographiques
+            pour
+            recevoir des conseils personnalisés selon votre emplacement.</p>
 
-    <form id="productForm" class="space-y-4">
-        <!-- Latitude -->
-        <label class="block">
-            <span class="text-gray-700">Latitude</span>
-            <input type="text" id="latitude" name="latitude"
-                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                   placeholder="Entrez la latitude" value="-1.6587679">
-        </label>
+        <form id="productForm" class="space-y-4">
+            <!-- Latitude -->
+            <label class="block">
+                <span class="text-gray-700">Latitude</span>
+                <input type="text" id="latitude" name="latitude"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                    placeholder="Entrez la latitude" value="-1.6587679">
+            </label>
 
-        <!-- Longitude -->
-        <label class="block">
-            <span class="text-gray-700">Longitude</span>
-            <input type="text" id="longitude" name="longitude"
-                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
-                   placeholder="Entrez la longitude" value="29.1257065">
-        </label>
+            <!-- Longitude -->
+            <label class="block">
+                <span class="text-gray-700">Longitude</span>
+                <input type="text" id="longitude" name="longitude"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                    placeholder="Entrez la longitude" value="29.1257065">
+            </label>
 
-        <label class="block">
-            <span class="text-gray-700">Produit Agricole</span>
-            <select id="product" name="product"
+            <!-- Produit Agricole -->
+            <label class="block">
+                <span class="text-gray-700">Produit Agricole</span>
+                <select id="product" name="product"
                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                <option value="">Sélectionner un produit</option>
-                <option value="maïs">Maïs</option>
-                <option value="riz">Riz</option>
-                <option value="haricot">Haricot</option>
-                <option value="manioc">Manioc</option>
-            </select>
-        </label>
+                    <option value="">Sélectionner un produit</option>
+                    <option value="maïs">Maïs</option>
+                    <option value="riz">Riz</option>
+                    <option value="haricot">Haricot</option>
+                    <option value="manioc">Manioc</option>
+                </select>
+            </label>
 
-        <button id="submitButton" type="submit"
+            <!-- Itinéraires Techniques Agricoles -->
+            <label class="block">
+                <span class="text-gray-700">Itinéraires Techniques Agricoles pour les Cultures</span>
+                <select id="techniques" name="techniques"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    <option value="">-- Sélectionnez un itinéraire technique --</option>
+                </select>
+            </label>
+
+            <!-- Langue -->
+            <label class="block">
+                <span class="text-gray-700">Langue</span>
+                <select id="language" name="language"
+                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    <option value="">Sélectionner une langue</option>
+                    <option value="Français">Français</option>
+                    <option value="swahili">Swahili</option>
+                    <option value="Lingala">Lingala</option>
+                    <option value="kikongo">Kikongo</option>
+                    <option value="tshiluba">Tshiluba</option>
+                </select>
+            </label>
+
+            <button id="submitButton" type="submit"
                 class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-            Envoyer
-        </button>
-    </form>
+                Envoyer
+            </button>
+        </form>
 
-    <!-- Result Section -->
-    <div id="result" class="mt-6 text-justify text-gray-700" style="overflow: scroll;"></div>
-</div>
 
-<script>
-    $(document).ready(function () {
-        $('#productForm').on('submit', async function (event) {
-            event.preventDefault(); // Empêche le rechargement de la page
+        <!-- Result Section -->
+        <div id="result" class="mt-6 text-justify text-gray-700" style="overflow: scroll;"></div>
+    </div>
 
-            const product = $('#product').val();
-            const latitude = $('#latitude').val();
-            const longitude = $('#longitude').val();
-            const submitButton = $('#submitButton');
-            const resultDiv = $('#result');
+    <script>
+        $(document).ready(function () {
+            document.getElementById('product').addEventListener('change', function () {
+                const product = this.value;
+                const techniquesSelect = document.getElementById('techniques');
 
-            // Vérification des champs du formulaire
-            if (!product || !latitude || !longitude) {
-                resultDiv.html('<p class="text-red-600">Veuillez remplir tous les champs.</p>');
-                return;
-            }
+                // Vider les options existantes
+                techniquesSelect.innerHTML = '<option value="">-- Sélectionnez un itinéraire technique --</option>';
 
-            // Désactivation du bouton et affichage de "Envoi en cours..."
-            submitButton.prop('disabled', true).text('Envoi en cours...');
+                // Définir les itinéraires techniques en fonction du produit sélectionné
+                let techniquesOptions = [];
 
-            try {
-                const message = `Fait moi une interprétation facile pur les petit agriculteurs africain de la rdc du nord-kivu qui cultivent ${product} en format tweet des ces données météorologiques ci-après : `;
-                const data = {
-                    message: message,
-                    latitude: latitude,
-                    longitude: longitude
+                switch (product) {
+                    case "maïs":
+                        techniquesOptions = [
+                            "Préparation du sol : Labour profond pour améliorer l’aération.",
+                            "Semis : Semis direct ou en lignes à une profondeur de 3-5 cm.",
+                            "Fertilisation : Utilisation d'engrais organiques et minéraux.",
+                            "Irrigation : Suivi de l'humidité du sol, irrigation si nécessaire.",
+                            "Contrôle des nuisibles : Surveillance et lutte intégrée contre les ravageurs."
+                        ];
+                        break;
+                    case "riz":
+                        techniquesOptions = [
+                            "Choix des variétés : Sélection de variétés adaptées aux conditions locales.",
+                            "Préparation des rizières : Inondation contrôlée pour la germination.",
+                            "Semis : Semis direct en ligne ou repiquage des plants.",
+                            "Gestion de l'eau : Maintien d'un niveau d'eau adéquat.",
+                            "Récolte : Récolter lorsque les grains sont bien mûrs."
+                        ];
+                        break;
+                    case "haricot":
+                        techniquesOptions = [
+                            "Préparation du sol : Labour et ajout de compost pour enrichir le sol.",
+                            "Semis : Semis à la volée ou en lignes, à une profondeur de 3-5 cm.",
+                            "Fertilisation : Apport d'engrais azotés pour améliorer le rendement.",
+                            "Irrigation : Surveillance de l'humidité du sol.",
+                            "Récolte : Récolter lorsque les gousses sont sèches."
+                        ];
+                        break;
+                    case "manioc":
+                        techniquesOptions = [
+                            "Choix des boutures : Sélection de variétés à haut rendement.",
+                            "Préparation du sol : Labour et amendement avec du compost.",
+                            "Plantation : Planter les boutures à une profondeur de 10-15 cm.",
+                            "Entretien : Désherbage et fertilisation réguliers.",
+                            "Récolte : Récolter après 8-12 mois, lorsque les racines sont bien développées."
+                        ];
+                        break;
                 }
-                const secondResponse = await axios.post('https://api-test-jnpb-mew8ljmft-justin-micahs-projects.vercel.app/test-api', data);
 
-                const finalData = secondResponse.data;
-                //F
-                // Affichage du résultat final
-                resultDiv.html('<p class="text-green-600 font-bold">Conseil Final :<br/> ' + finalData + '</p>');
-            } catch (error) {
-                console.error('Erreur lors de la requête', error);
-                resultDiv.html('<p class="text-red-600">Une erreur est survenue. Veuillez réessayer.</p>');
-            } finally {
-                // Réactivation du bouton et réinitialisation du texte
-                submitButton.prop('disabled', false).text('Envoyer');
-            }
+                // Ajouter les nouvelles options
+                techniquesOptions.forEach(function (technique) {
+                    let option = document.createElement('option');
+                    option.value = technique;
+                    option.textContent = technique;
+                    techniquesSelect.appendChild(option);
+                });
+            });
+
+            $('#productForm').on('submit', async function (event) {
+                event.preventDefault(); // Empêche le rechargement de la page
+
+                const product = $('#product').val();
+                const latitude = $('#latitude').val();
+                const longitude = $('#longitude').val();
+                const submitButton = $('#submitButton');
+                const resultDiv = $('#result');
+
+                // Vérification des champs du formulaire
+                if (!product || !latitude || !longitude) {
+                    resultDiv.html('<p class="text-red-600">Veuillez remplir tous les champs.</p>');
+                    return;
+                }
+
+                // Désactivation du bouton et affichage de "Envoi en cours..."
+                submitButton.prop('disabled', true).text('Envoi en cours...');
+
+                try {
+                    const message = `Fait moi une interprétation facile pur les petit agriculteurs africain de la rdc du nord-kivu qui cultivent ${product} en format tweet des ces données météorologiques ci-après : `;
+                    const data = {
+                        message: message,
+                        latitude: latitude,
+                        longitude: longitude
+                    }
+                    const secondResponse = await axios.post('http://localhost:3000/test-api', data);
+
+                    const finalData = secondResponse.data;
+                    //F
+                    // Affichage du résultat final
+                    resultDiv.html('<p class="text-green-600 font-bold">Conseil Final :<br/> ' + finalData + '</p>');
+                } catch (error) {
+                    console.error('Erreur lors de la requête', error);
+                    resultDiv.html('<p class="text-red-600">Une erreur est survenue. Veuillez réessayer.</p>');
+                } finally {
+                    // Réactivation du bouton et réinitialisation du texte
+                    submitButton.prop('disabled', false).text('Envoyer');
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 
