@@ -212,7 +212,7 @@
                         language: language,
                         techniques: techniques
                     }
-                    const secondResponse = await axios.post('http://localhost:5001/get_data_api', data);
+                    const secondResponse = await axios.post('https://api-test-bice-nu.vercel.app/get_data_api', data);
 
                     const finalData = secondResponse.data;
                     // Affichage du résultat final
