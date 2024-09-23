@@ -8,6 +8,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- CSS de Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- JS de Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,14 +58,40 @@
             <label class="block">
                 <span class="text-gray-700">Produit Agricole</span>
                 <select id="product" name="product"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    class="select2 mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
                     <option value="">Sélectionner un produit</option>
-                    <option value="maïs">Maïs</option>
-                    <option value="riz">Riz</option>
-                    <option value="haricot">Haricot</option>
-                    <option value="manioc">Manioc</option>
+
+                    <!-- Céréales -->
+                    <optgroup label="Céréales">
+                        <option value="maïs">Maïs</option>
+                        <option value="riz">Riz</option>
+                    </optgroup>
+
+                    <!-- Légumineuses -->
+                    <optgroup label="Légumineuses">
+                        <option value="haricot">Haricot</option>
+                    </optgroup>
+
+                    <!-- Tubercules -->
+                    <optgroup label="Tubercules">
+                        <option value="manioc">Manioc</option>
+                    </optgroup>
+
+                    <!-- Légumes -->
+                    <optgroup label="Légumes">
+                        <option value="tomate">Tomate</option>
+                        <option value="chou">Chou</option>
+                        <option value="carotte">Carotte</option>
+                        <option value="poivron">Poivron</option>
+                        <option value="oignon">Oignon</option>
+                        <option value="aubergine">Aubergine</option>
+                        <option value="salades">Salades</option>
+                    </optgroup>
+
                 </select>
             </label>
+
+
 
             <!-- Itinéraires Techniques Agricoles -->
             <label class="block">
@@ -98,7 +129,14 @@
 
     <script>
         $(document).ready(function () {
-            document.getElementById('product').addEventListener('change', function () {
+            // Initialisation de Select2
+            $('#product').select2({
+                placeholder: "Sélectionner un produit",
+                allowClear: true
+            });
+
+            // Écouter l'événement change via jQuery
+            $('#product').on('change', function () {
                 const product = this.value;
                 const techniquesSelect = document.getElementById('techniques');
 
@@ -127,24 +165,7 @@
                             "Récolte : Récolter lorsque les grains sont bien mûrs."
                         ];
                         break;
-                    case "haricot":
-                        techniquesOptions = [
-                            "Préparation du sol : Labour et ajout de compost pour enrichir le sol.",
-                            "Semis : Semis à la volée ou en lignes, à une profondeur de 3-5 cm.",
-                            "Fertilisation : Apport d'engrais azotés pour améliorer le rendement.",
-                            "Irrigation : Surveillance de l'humidité du sol.",
-                            "Récolte : Récolter lorsque les gousses sont sèches."
-                        ];
-                        break;
-                    case "manioc":
-                        techniquesOptions = [
-                            "Choix des boutures : Sélection de variétés à haut rendement.",
-                            "Préparation du sol : Labour et amendement avec du compost.",
-                            "Plantation : Planter les boutures à une profondeur de 10-15 cm.",
-                            "Entretien : Désherbage et fertilisation réguliers.",
-                            "Récolte : Récolter après 8-12 mois, lorsque les racines sont bien développées."
-                        ];
-                        break;
+                    // Ajoutez les autres cas ici...
                 }
 
                 // Ajouter les nouvelles options
@@ -155,6 +176,12 @@
                     techniquesSelect.appendChild(option);
                 });
             });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
 
             $('#productForm').on('submit', async function (event) {
                 event.preventDefault(); // Empêche le rechargement de la page
