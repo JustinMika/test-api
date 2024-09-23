@@ -20,7 +20,6 @@
         pour
         recevoir des conseils personnalisés selon votre emplacement.</p>
 
-    <!-- Product Selection Form with Latitude and Longitude -->
     <form id="productForm" class="space-y-4">
         <!-- Latitude -->
         <label class="block">
@@ -38,7 +37,6 @@
                    placeholder="Entrez la longitude" value="29.1257065">
         </label>
 
-        <!-- Product Selection -->
         <label class="block">
             <span class="text-gray-700">Produit Agricole</span>
             <select id="product" name="product"
@@ -51,7 +49,6 @@
             </select>
         </label>
 
-        <!-- Submit Button -->
         <button id="submitButton" type="submit"
                 class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
             Envoyer
@@ -83,29 +80,7 @@
             submitButton.prop('disabled', true).text('Envoi en cours...');
 
             try {
-                // // Deuxième requête : Utilisation des données de la première requête pour une deuxième requête
-                const data_all = {
-                    "daily": {
-                        "feels_like": 20.52,
-                        "rainprob": 51,
-                        "rainfall": 3.29,
-                        "wsp": 5.78,
-                        "pwindgust": 6.68,
-                        "temp": 20.83,
-                        "relh": 61.68,
-                        "tcc": 34.19,
-                        "feels_like_min": 17.62,
-                        "feels_like_max": 24.25,
-                        "wsp_min": 1.43,
-                        "wsp_max": 12.64,
-                        "temp_min": 18.04,
-                        "temp_max": 24.55,
-                        "relh_min": 43.01,
-                        "relh_max": 72.68,
-                        "fcat25": 3
-                    },
-                };
-                const message = `Quelles pratiques agricoles durables devrais-je adopter pour optimiser ma culture de ${product} en fonction des conditions climatiques spécifiques de ma région afrique en rdc.  Ci apres les donnees meteorologiques : `;
+                const message = `Fait moi une interprétation facile pur les petit agriculteurs africain de la rdc du nord-kivu qui cultivent ${product} en format tweet des ces données météorologiques ci-après : `;
                 const data = {
                     message: message,
                     latitude: latitude,
