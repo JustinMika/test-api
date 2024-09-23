@@ -187,10 +187,10 @@
                 const product = $('#product').val();
                 const latitude = $('#latitude').val();
                 const longitude = $('#longitude').val();
-                const language = $('#language');
-                const submitButton = $('#submitButton');
-                const techniques = $('#techniques');
+                const language = $('#language').val();
+                const techniques = $('#techniques').val();
                 const resultDiv = $('#result');
+                const submitButton = $('#submitButton');
 
                 // Vérification des champs du formulaire
                 if (!product || !latitude || !longitude || !language) {
@@ -200,9 +200,10 @@
 
                 // Désactivation du bouton et affichage de "Envoi en cours..."
                 submitButton.prop('disabled', true).text('Envoi en cours...');
+                resultDiv.empty();
 
                 try {
-                    const message = `Fait moi une interprétation facile pur les petit agriculteurs africain de la rdc du nord-kivu qui cultivent ${product} en format tweet des ces données météorologiques ci-après : `;
+                    const message = `Fait moi une interprétation facile pour les petits agriculteurs africain de la rdc du nord-kivu qui cultivent ${product} en format tweet des ces données météorologiques ci-après : `;
                     const data = {
                         message: message,
                         latitude: latitude,
